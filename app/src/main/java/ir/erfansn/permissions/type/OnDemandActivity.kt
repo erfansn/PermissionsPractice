@@ -42,6 +42,19 @@ class OnDemandActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.CAMERA,
+        ) == PackageManager.PERMISSION_GRANTED && hasAccessToAllFiles) {
+            binding.root.showSnackbar(
+                getString(R.string.all_permissions_granted),
+                Snackbar.LENGTH_LONG,
+            )
+        }
+    }
+
     fun onClickRequestRuntimePermission(view: View) {
         when {
             ContextCompat.checkSelfPermission(
@@ -50,7 +63,7 @@ class OnDemandActivity : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED -> {
                 binding.root.showSnackbar(
                     getString(R.string.camera_permission_granted),
-                    Snackbar.LENGTH_INDEFINITE,
+                    Snackbar.LENGTH_LONG,
                 )
             }
             ActivityCompat.shouldShowRequestPermissionRationale(

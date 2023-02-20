@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- A sample of a normal protection level (Normal) permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--In android 10 (API 29) or higher due to scoped storage this permission isn't used -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <!-- A sample of a signature protection level (System) permission -->
+    <uses-permission
+        android:name="android.permission.BIND_VPN_SERVICE"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- A sample of a dangerous protection level (Runtime) permission -->
+    <!-- This permission is a hardware-associate permission if we want the system doesn't prevent app
+    installation (Markets only) declare its corresponding uses-feature element and set the required attribute to false
+    https://developer.android.com/guide/topics/manifest/uses-feature-element#large-screen-support -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!-- A sample of a appop protection level (Special, OEM related) permission -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RuntimePermission"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".type.OnDemandActivity"
+            android:exported="false"
+            android:label="@string/on_demand" />
+        <activity
+            android:name=".type.StartupActivity"
+            android:exported="false"
+            android:label="@string/startup" />
+    </application>
+
+</manifest>

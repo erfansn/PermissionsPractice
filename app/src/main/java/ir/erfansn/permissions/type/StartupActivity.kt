@@ -42,9 +42,17 @@ class StartupActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        requestPermissionLauncher.launch(
-            android.Manifest.permission.READ_SMS
-        )
+        if (
+            !permissionsPreferences.getBoolean(getString(R.string.key_permissions_sms_rationale), false) &&
+            ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_SMS,
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+            requestPermissionLauncher.launch(
+                android.Manifest.permission.READ_SMS
+            )
+        }
         if (!hasAccessToAllFiles) {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.manage_storage_permission_required))
@@ -80,6 +88,9 @@ class StartupActivity : AppCompatActivity() {
                 )
             }
             ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_SMS) -> {
+                permissionsPreferences.edit {
+                    putBoolean(getString(R.string.key_permissions_sms_rationale), true)
+                }
                 binding.root.showSnackbar(
                     getString(R.string.sms_permission_required),
                     Snackbar.LENGTH_INDEFINITE,
@@ -88,9 +99,6 @@ class StartupActivity : AppCompatActivity() {
                     requestPermissionLauncher.launch(
                         android.Manifest.permission.READ_SMS
                     )
-                }
-                permissionsPreferences.edit {
-                    putBoolean(getString(R.string.key_permissions_sms_rationale), true)
                 }
             }
             permissionsPreferences.getBoolean(getString(R.string.key_permissions_sms_rationale), false) -> {

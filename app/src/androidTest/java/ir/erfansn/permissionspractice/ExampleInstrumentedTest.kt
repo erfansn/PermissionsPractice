@@ -1,4 +1,4 @@
-package ir.erfansn.permissions
+package ir.erfansn.permissionspractice
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

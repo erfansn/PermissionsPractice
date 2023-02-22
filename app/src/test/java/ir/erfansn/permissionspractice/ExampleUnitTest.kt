@@ -1,4 +1,4 @@
-package ir.erfansn.permissions
+package ir.erfansn.permissionspractice
 
 import org.junit.Test
 

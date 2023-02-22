@@ -1,11 +1,10 @@
-package ir.erfansn.permissions.type
+package ir.erfansn.permissionspractice.type
 
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -17,11 +16,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import com.google.android.material.snackbar.Snackbar
-import ir.erfansn.permissions.R
-import ir.erfansn.permissions.databinding.ActivityOnDemandBinding
-import ir.erfansn.permissions.hasAccessToAllFiles
-import ir.erfansn.permissions.permissionsPreferences
-import ir.erfansn.permissions.showSnackbar
+import ir.erfansn.permissionspractice.R
+import ir.erfansn.permissionspractice.databinding.ActivityOnDemandBinding
+import ir.erfansn.permissionspractice.hasAccessToAllFiles
+import ir.erfansn.permissionspractice.permissionsPreferences
+import ir.erfansn.permissionspractice.showSnackbar
 
 class OnDemandActivity : AppCompatActivity() {
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Permissions</string>
+    <string name="app_name">Permissions Practice</string>
 
     <string name="camera_permission_granted">Permission is granted. You can use the camera now.</string>
     <string name="camera_permission_required">Camera access is required to display the camera preview.</string>

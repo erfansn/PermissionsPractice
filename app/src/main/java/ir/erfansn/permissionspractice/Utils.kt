@@ -1,4 +1,4 @@
-package ir.erfansn.permissions
+package ir.erfansn.permissionspractice
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

@@ -1,4 +1,4 @@
-package ir.erfansn.permissions.type
+package ir.erfansn.permissionspractice.type
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,11 +15,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import com.google.android.material.snackbar.Snackbar
-import ir.erfansn.permissions.R
-import ir.erfansn.permissions.databinding.ActivityStartupBinding
-import ir.erfansn.permissions.hasAccessToAllFiles
-import ir.erfansn.permissions.permissionsPreferences
-import ir.erfansn.permissions.showSnackbar
+import ir.erfansn.permissionspractice.R
+import ir.erfansn.permissionspractice.databinding.ActivityStartupBinding
+import ir.erfansn.permissionspractice.hasAccessToAllFiles
+import ir.erfansn.permissionspractice.permissionsPreferences
+import ir.erfansn.permissionspractice.showSnackbar
 
 class StartupActivity : AppCompatActivity() {
 

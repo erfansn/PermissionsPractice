@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'ir.erfansn.permissions'
+    namespace 'ir.erfansn.permissionspractice'
     compileSdk 33
 
     defaultConfig {
-        applicationId 'ir.erfansn.permissions'
+        applicationId 'ir.erfansn.permissionspractice'
         minSdk 24
         targetSdk 33
         versionCode 1

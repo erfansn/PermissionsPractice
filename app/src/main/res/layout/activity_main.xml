@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/request_types"
@@ -12,7 +13,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/request_types"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toTopOf="@+id/startup"
+        app:layout_constraintBottom_toTopOf="@+id/on_startup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +22,10 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        android:id="@+id/startup"
+        android:id="@+id/on_startup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/startup"
+        android:text="@string/on_startup"
         app:layout_constraintBottom_toTopOf="@+id/on_demand"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -41,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startup"
+        app:layout_constraintTop_toBottomOf="@+id/on_startup"
         app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

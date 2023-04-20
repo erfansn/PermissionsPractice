@@ -11,18 +11,23 @@
     <string name="manage_storage_permission_required">Access to all files</string>
     <string name="manage_storage_permission_required_details">In order to manipulate the files, it is necessary to grant the manage storage permission</string>
 
+    <string name="overlay_draw_permission_granted">Permission is granted. You can now draw content over the apps.</string>
+    <string name="overlay_draw_permission_required">Draw content over apps</string>
+    <string name="overlay_draw_permission_required_details">In order to draw content on other apps, it is necessary to grant the draw overlay permission</string>
+
     <string name="all_permissions_granted">All permission are granted. You can use all features of the app.</string>
     <string name="allowing_permission_from_settings">This feature requires allowing the %s permission from app settings</string>
 
     <string name="preferences_permissions">ir.erfansn.permissions.PREFERENCES_PERMISSIONS</string>
     <string name="key_permissions_camera_rationale">IS_CAMERA_RATIONALE_SHOWED</string>
     <string name="key_permissions_sms_rationale">IS_SMS_RATIONALE_SHOWED</string>
+    <string name="key_permissions_all_file_access_rationale">IS_ALL_FILE_ACCESS_RATIONALE_SHOWED</string>
 
     <string name="request_runtime_permissions">Request Runtime Permission</string>
     <string name="request_special_permissions">Request Special Permission</string>
     <string name="ok">OK</string>
     <string name="go">GO</string>
-    <string name="startup">Startup</string>
+    <string name="on_startup">On-startup</string>
     <string name="on_demand">On-demand</string>
     <string name="request_types">Request type:</string>
 </resources>

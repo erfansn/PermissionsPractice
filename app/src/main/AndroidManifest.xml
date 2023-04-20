@@ -4,6 +4,7 @@
 
     <!-- A sample of a normal protection level (Normal) permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--In android 10 (API 29) or higher due to scoped storage this permission isn't used -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -22,7 +23,11 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <!-- A sample of a appop protection level (Special, OEM related) permission -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -54,9 +59,9 @@
             android:exported="false"
             android:label="@string/on_demand" />
         <activity
-            android:name=".type.StartupActivity"
+            android:name=".type.OnStartupActivity"
             android:exported="false"
-            android:label="@string/startup" />
+            android:label="@string/on_startup" />
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ir.erfansn.permissionspractice.databinding.ActivityMainBinding
 import ir.erfansn.permissionspractice.type.OnDemandActivity
-import ir.erfansn.permissionspractice.type.StartupActivity
+import ir.erfansn.permissionspractice.type.OnStartupActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.startup.setOnClickListener {
-            startActivity(Intent(this, StartupActivity::class.java))
+        binding.onStartup.setOnClickListener {
+            startActivity(Intent(this, OnStartupActivity::class.java))
         }
         binding.onDemand.setOnClickListener {
             startActivity(Intent(this, OnDemandActivity::class.java))

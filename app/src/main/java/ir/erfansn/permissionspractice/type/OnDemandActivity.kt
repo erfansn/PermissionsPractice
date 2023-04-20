@@ -3,35 +3,53 @@ package ir.erfansn.permissionspractice.type
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
+import androidx.activity.result.launch
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.edit
 import com.google.android.material.snackbar.Snackbar
 import ir.erfansn.permissionspractice.R
+import ir.erfansn.permissionspractice.canDrawOverlays
+import ir.erfansn.permissionspractice.contract.GetOverlayDrawPermission
 import ir.erfansn.permissionspractice.databinding.ActivityOnDemandBinding
-import ir.erfansn.permissionspractice.hasAccessToAllFiles
+import ir.erfansn.permissionspractice.get
 import ir.erfansn.permissionspractice.permissionsPreferences
+import ir.erfansn.permissionspractice.set
 import ir.erfansn.permissionspractice.showSnackbar
 
 class OnDemandActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnDemandBinding
 
-    private val requestPermissionLauncher =
+    private val requestCameraPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                Log.i(TAG, "Granted")
+                binding.showSnackbar(
+                    getString(R.string.camera_permission_granted),
+                    Snackbar.LENGTH_LONG,
+                )
+                Log.i(TAG, "Camera access permission granted")
             } else {
-                Log.i(TAG, "Denied")
+                Log.i(TAG, "Camera access permission denied")
+            }
+        }
+
+    private val requestOverlayDrawPermission =
+        registerForActivityResult(GetOverlayDrawPermission()) { isGranted ->
+            if (isGranted) {
+                binding.showSnackbar(
+                    getString(R.string.overlay_draw_permission_granted),
+                    Snackbar.LENGTH_LONG,
+                )
+                Log.i(TAG, "Overlay draw permission granted")
+            } else {
+                Log.i(TAG, "Overlay draw permission granted")
             }
         }
 
@@ -41,52 +59,27 @@ class OnDemandActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (ContextCompat.checkSelfPermission(
-            this,
-            android.Manifest.permission.CAMERA,
-        ) == PackageManager.PERMISSION_GRANTED && hasAccessToAllFiles) {
-            binding.root.showSnackbar(
-                getString(R.string.all_permissions_granted),
-                Snackbar.LENGTH_LONG,
-            )
-        }
-    }
-
     fun onClickRequestRuntimePermission(view: View) {
         when {
-            ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.CAMERA,
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                binding.root.showSnackbar(
-                    getString(R.string.camera_permission_granted),
-                    Snackbar.LENGTH_LONG,
-                )
-            }
             ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
                 android.Manifest.permission.CAMERA
             ) -> {
-                binding.root.showSnackbar(
+                binding.showSnackbar(
                     getString(R.string.camera_permission_required),
                     Snackbar.LENGTH_INDEFINITE,
                     getString(R.string.ok)
                 ) {
-                    permissionsPreferences.edit {
-                        putBoolean(getString(R.string.key_permissions_camera_rationale), true)
-                    }
-                    requestPermissionLauncher.launch(
+                    permissionsPreferences[getString(R.string.key_permissions_camera_rationale)] = true
+                    requestCameraPermission.launch(
                         android.Manifest.permission.CAMERA
                     )
                 }
             }
-            permissionsPreferences.getBoolean(
-                getString(R.string.key_permissions_camera_rationale),
-                false
-            ) -> {
-                binding.root.showSnackbar(
+
+            permissionsPreferences[getString(R.string.key_permissions_camera_rationale)]
+                    && !isCameraPermissionGranted -> {
+                binding.showSnackbar(
                     getString(R.string.allowing_permission_from_settings, "Camera"),
                     Snackbar.LENGTH_LONG,
                     getString(R.string.go)
@@ -96,8 +89,9 @@ class OnDemandActivity : AppCompatActivity() {
                         .also(::startActivity)
                 }
             }
+
             else -> {
-                requestPermissionLauncher.launch(
+                requestCameraPermission.launch(
                     android.Manifest.permission.CAMERA
                 )
             }
@@ -105,23 +99,24 @@ class OnDemandActivity : AppCompatActivity() {
     }
 
     fun onClickRequestSpecialPermission(view: View) {
-        if (hasAccessToAllFiles) {
-            binding.root.showSnackbar(
-                getString(R.string.manage_storage_permission_granted),
-                Snackbar.LENGTH_INDEFINITE,
-            )
-        } else {
+        if (!canDrawOverlays) {
             AlertDialog.Builder(this)
-                .setTitle(getString(R.string.manage_storage_permission_required))
-                .setMessage(getString(R.string.manage_storage_permission_required_details))
-                .setPositiveButton(getString(R.string.ok)) @RequiresApi(Build.VERSION_CODES.R) { _, _ ->
-                    Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                        .setData(Uri.fromParts("package", packageName, null))
-                        .also(::startActivity)
+                .setTitle(getString(R.string.overlay_draw_permission_required))
+                .setMessage(getString(R.string.overlay_draw_permission_required_details))
+                .setPositiveButton(getString(R.string.ok)) { _, _ ->
+                    requestOverlayDrawPermission.launch()
                 }
                 .show()
+        } else {
+            requestOverlayDrawPermission.launch()
         }
     }
+
+    private val isCameraPermissionGranted
+        get() = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.CAMERA,
+        ) == PackageManager.PERMISSION_GRANTED
 
     companion object {
         private const val TAG = "OnDemandActivity"
